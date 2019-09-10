@@ -22,5 +22,4 @@ public class MyPreciseShardingAlgorithm implements PreciseShardingAlgorithm<Long
 		}
 		throw new IllegalArgumentException();
 	}
-
 }

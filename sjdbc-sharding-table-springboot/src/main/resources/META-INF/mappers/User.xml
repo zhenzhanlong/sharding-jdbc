@@ -8,7 +8,7 @@
         <result column="name" property="name" jdbcType="VARCHAR" />
     </resultMap>
     
-    <insert id="addUser">
+<!--     <insert id="addUser">
         INSERT INTO user (
           id, city, name
         )
@@ -17,6 +17,18 @@
         #{city,jdbcType=VARCHAR},
         #{name,jdbcType=VARCHAR}
         )
+    </insert> -->
+    
+    <insert id="addUser">
+      INSERT INTO excel (
+       id,
+ 	   batch_no,
+       company_name
+       )values(
+       #{id},
+        #{city},
+        #{name}
+       )
     </insert>
    
     <select id="list" resultMap="baseResultMap">

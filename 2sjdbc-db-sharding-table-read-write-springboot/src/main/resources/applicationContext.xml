@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context.xsd 
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/mvc 
+	http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	http://www.springframework.org/schema/websocket 
+	http://www.springframework.org/schema/websocket/spring-websocket.xsd
+	http://mybatis.org/schema/mybatis-spring 
+	http://mybatis.org/schema/mybatis-spring.xsd
+	">
+
+	<bean id="propertyConfigurer"
+		class="com.complex.practice.util.PPropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:application.properties</value>
+			</list>
+		</property>
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+		<property name="fileEncoding">
+			<value>UTF-8</value>
+		</property>
+	</bean>
+	<!-- <import resource="classpath*:datasource/datasource.xml" /> -->
+	<!-- dubbo 配置文件 <import resource="classpath:config/xml/spring/dubbo.xml" 
+		/> -->
+	<!-- 支持文件上传 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+	<!-- 缓存配置 -->
+	<bean id="redisCache" class="com.sx.cache.Cache">
+		<constructor-arg name="host" value="172.16.4.26" />
+		<constructor-arg name="port" value="6379" />
+		<constructor-arg name="timeout" value="10000" />
+		<constructor-arg name="passwd" value="123456" />
+		<constructor-arg name="maxidle" value="10" />
+		<constructor-arg name="maxtotal" value="50" />
+		<constructor-arg name="testonborrow" value="false" />
+	</bean>
+	
+	<!-- <mybatis:scan base-package="complex.complexBootWeb.dao" /> -->
+</beans>

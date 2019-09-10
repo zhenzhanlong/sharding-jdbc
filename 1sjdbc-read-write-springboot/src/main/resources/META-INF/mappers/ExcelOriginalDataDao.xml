@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="complex.complexBootWeb.dao.salary.excel.IExcelOriginalDataDao">
+
+	<!--通用查询sql -->
+	<sql id="ExcelOriginalDataDaoSelectSql">
+		select
+		id,batch_no,company_name,consumer_name,law_type,law_type_name,law_no,money,status,
+		transfer_status,transfer_time,withdraw_status,verify_status,withdraw_time,audit_status,
+		withdraw_type,account_no,bank_account_no,tradeMemCode,card_num,edit_time,create_time,
+		consumer_id,salary_unique_id
+		from excel
+	</sql>
+	<sql id="ExcelOriginalDataDaoWhereAndSql">
+		<where>
+			<if test="id !=null ">
+				and id = #{id}
+			</if>
+			<if test="salary_unique_id !=null ">
+				and salary_unique_id = #{salary_unique_id}
+			</if>
+			<if test="batch_no !=null ">
+				and batch_no like CONCAT('%', #{batch_no}, '%')
+			</if>
+			<if test="company_name !=null ">
+				and company_name like CONCAT('%', #{company_name}, '%')
+			</if>
+			<if test="consumer_name !=null ">
+				and consumer_name like CONCAT('%', #{consumer_name}, '%')
+			</if>
+			<if test="law_type !=null ">
+				and law_type = #{law_type}
+			</if>
+			<if test="law_type_name !=null ">
+				and law_type_name = #{law_type_name}
+			</if>
+			<if test="law_no !=null ">
+				and law_no like CONCAT('%', #{law_no}, '%')
+			</if>
+			<if test="status !=null ">
+				and status = #{status}
+			</if>
+			<if test="transfer_status !=null ">
+				and transfer_status = #{transfer_status}
+			</if>
+			<if test="transfer_time !=null ">
+				and transfer_time = #{transfer_time}
+			</if>
+			<if test="withdraw_status !=null ">
+				and withdraw_status = #{withdraw_status}
+			</if>
+			<if test="verify_status !=null ">
+				and verify_status = #{verify_status}
+			</if>		
+			<if test="audit_status !=null ">
+				and audit_status = #{audit_status}
+			</if>
+			<if test="withdraw_type !=null ">
+				and withdraw_type = #{withdraw_type}
+			</if>
+			<if test="account_no !=null ">
+				and account_no = #{account_no}
+			</if>
+			<if test="bank_account_no !=null ">
+				and bank_account_no = #{bank_account_no}
+			</if>
+			<if test="tradeMemCode !=null ">
+				and tradeMemCode = #{tradeMemCode}
+			</if>
+			<if test="card_num !=null ">
+				and card_num like CONCAT('%', #{card_num}, '%')
+			</if>
+			<if test="consumer_id !=null ">
+				and consumer_id = #{consumer_id}
+			</if>
+			<if test="ids_ !=null ">
+				and id in
+				<foreach open="(" index="index" item="id" separator="," collection="ids_" close=")">
+					#{id}
+				</foreach>
+			</if>
+		</where>
+	</sql>
+	<!--结果转换 （界面显示非用户基本信息字段使用 -->
+	<resultMap type="ExcelOriginalDataPO" id="ExcelOriginalDataMap">
+		<result property="id" column="id" />
+		<result property="batch_no" column="batch_no" />
+		<result property="company_name" column="company_name" />
+		<result property="consumer_name" column="consumer_name" />
+		<result property="law_type" column="law_type" />
+		<result property="law_type_name" column="law_type_name" />
+		<result property="law_no" column="law_no" />
+		<result property="money" column="money" />
+		<result property="status" column="status" />
+		<result property="transfer_status" column="transfer_status" />
+		<result property="transfer_time" column="transfer_time" />
+		<result property="withdraw_status" column="withdraw_status" />
+		<result property="verify_status" column="verify_status" />
+		<result property="withdraw_time" column="withdraw_time" />
+		<result property="audit_status" column="audit_status" />
+		<result property="withdraw_type" column="withdraw_type" />
+		<result property="account_no" column="account_no" />
+		<result property="bank_account_no" column="bank_account_no" />
+		<result property="tradeMemCode" column="tradeMemCode" />
+		<result property="card_num" column="card_num" />
+		<result property="edit_time" column="edit_time" />
+		<result property="create_time" column="create_time" />
+		<result property="consumer_id" column="consumer_id" />
+		<result property="salary_unique_id" column="salary_unique_id" />
+
+	</resultMap>
+	<!--数据新增 -->
+	<insert parameterType="ExcelOriginalDataPO" id="add">
+		insert into excel
+		(id,batch_no,company_name,consumer_name,law_type,law_type_name,law_no,money,status,transfer_status,transfer_time,
+		withdraw_status,verify_status,withdraw_time,audit_status,withdraw_type,account_no,bank_account_no,tradeMemCode,
+		card_num,edit_time,create_time,consumer_id,salary_unique_id)
+		values
+		(#{id},#{batch_no},#{company_name},#{consumer_name},#{law_type},#{law_type_name},#{law_no},#{money},#{status},
+		#{transfer_status},#{transfer_time},#{withdraw_status},#{verify_status},#{withdraw_time},#{audit_status},
+		#{withdraw_type},#{account_no},#{bank_account_no},#{tradeMemCode},#{card_num},#{edit_time},#{create_time},
+		#{consumer_id},#{salary_unique_id})
+	</insert>
+	<!--批量增加 -->
+	<insert parameterType="java.util.List" id="addBatch">
+		insert into excel
+		(id,batch_no,company_name,consumer_name,law_type,law_type_name,law_no,money,status,transfer_status,transfer_time,
+		withdraw_status,verify_status,withdraw_time,audit_status,withdraw_type,account_no,bank_account_no,tradeMemCode,
+		card_num,edit_time,create_time,consumer_id,salary_unique_id)
+		values
+		<foreach index="index" item="item" separator="," collection="list">
+			(#{item.id},#{item.batch_no},#{item.company_name},#{item.consumer_name},#{item.law_type},#{item.law_type_name},
+			#{item.law_no},#{item.money},#{item.status},#{item.transfer_status},#{item.transfer_time},
+			#{item.withdraw_status},#{item.verify_status},#{item.withdraw_time},#{item.audit_status},#{item.withdraw_type},
+			#{item.account_no},#{item.bank_account_no},#{item.tradeMemCode},#{item.card_num},#{item.edit_time},
+			#{item.create_time},#{item.consumer_id},#{item.salary_unique_id})
+		</foreach>
+	</insert>
+	<!--根据id删除 -->
+	<delete parameterType="ExcelOriginalDataPO" id="deleteById">
+		delete from excel
+		<where>
+			id = #{id}
+		</where>
+	</delete>
+	<!--更新 -->
+	<update parameterType="ExcelOriginalDataPO" id="update">
+		update excel
+		<set>
+			<if test="id !=null ">
+				id=#{id},
+			</if>
+			<if test="batch_no !=null ">
+				batch_no=#{batch_no},
+			</if>
+			<if test="company_name !=null ">
+				company_name=#{company_name},
+			</if>
+			<if test="consumer_name !=null ">
+				consumer_name=#{consumer_name},
+			</if>
+			<if test="law_type !=null ">
+				law_type=#{law_type},
+			</if>
+			<if test="law_type_name !=null ">
+				law_type_name=#{law_type_name},
+			</if>
+			<if test="law_no !=null ">
+				law_no=#{law_no},
+			</if>
+			<if test="money !=null ">
+				money=#{money},
+			</if>
+			<if test="status !=null ">
+				status=#{status},
+			</if>
+			<if test="transfer_status !=null ">
+				transfer_status=#{transfer_status},
+			</if>
+			<if test="transfer_time !=null ">
+				transfer_time=#{transfer_time},
+			</if>
+			<if test="withdraw_status !=null ">
+				withdraw_status=#{withdraw_status},
+			</if>
+			<if test="verify_status !=null ">
+				verify_status=#{verify_status},
+			</if>
+			<if test="withdraw_time !=null ">
+				withdraw_time=#{withdraw_time},
+			</if>
+			<if test="audit_status !=null ">
+				audit_status=#{audit_status},
+			</if>
+			<if test="withdraw_type !=null ">
+				withdraw_type=#{withdraw_type},
+			</if>
+			<if test="account_no !=null ">
+				account_no=#{account_no},
+			</if>
+			<if test="bank_account_no !=null ">
+				bank_account_no=#{bank_account_no},
+			</if>
+			<if test="tradeMemCode !=null ">
+				tradeMemCode=#{tradeMemCode},
+			</if>
+			<if test="card_num !=null ">
+				card_num=#{card_num},
+			</if>
+			<if test="edit_time !=null ">
+				edit_time=#{edit_time},
+			</if>
+			<if test="create_time !=null ">
+				create_time=#{create_time},
+			</if>
+
+		</set>
+		<where>
+			id=#{id}
+		</where>
+	</update>
+	<!--2 根据 consumer_id 获取用户信息 -->
+	<select resultMap="ExcelOriginalDataMap" parameterType="ExcelOriginalDataPO" id="queryById">
+		<include refid="ExcelOriginalDataDaoSelectSql" />
+		<where>
+			id = #{ id }
+		</where>
+	</select>
+	<!-- 修改用户状态 -->
+	<update parameterType="ExcelOriginalDataPO" id="editStatus">
+		update excel
+		<set>
+			status=#{status}
+		</set>
+		<where>
+			id = #{id}
+		</where>
+	</update>
+	<!-- 获取个人用户翻页信息 -->
+	<select resultMap="ExcelOriginalDataMap" parameterType="ExcelOriginalDataPO" id="queryList">
+		<include refid="ExcelOriginalDataDaoSelectSql" />
+		<include refid="ExcelOriginalDataDaoWhereAndSql" />
+		ORDER BY id desc
+	</select>
+	<!--获取个人用户翻页信息 -->
+	<select resultMap="ExcelOriginalDataMap" parameterType="ExcelOriginalDataPO" id="page">
+		<include refid="ExcelOriginalDataDaoSelectSql" />
+		<include refid="ExcelOriginalDataDaoWhereAndSql" />
+		ORDER BY create_time DESC
+		limit #{start},#{length}
+
+	</select>
+	<!--23 获取满足条件的用户信息数量 -->
+	<select resultType="java.lang.Long" parameterType="ExcelOriginalDataPO" id="count">
+		SELECT COUNT(id) FROM excel
+		<include refid="ExcelOriginalDataDaoWhereAndSql" />
+	</select>
+	<!--23 获取满足条件的用户信息数量 -->
+	<select resultType="java.util.Map" parameterType="ExcelOriginalDataPO" id="countPage">
+		SELECT COUNT(id) num,IFNULL(SUM(money),0.0) money   FROM excel
+		<include refid="ExcelOriginalDataDaoWhereAndSql" />
+	</select>
+	<!-- 31 批量修改用户状态信息 -->
+	<update parameterType="java.util.Map" id="editStatusBatch">
+		update excel
+		<set>
+			status=#{status}
+		</set>
+		<where>
+			id in
+			<foreach open="(" index="index" item="id" separator="," collection="ids_" close=")">
+				#{id}
+			</foreach>
+		</where>
+	</update>
+	<!-- 验证数据 -->
+	<select resultMap="ExcelOriginalDataMap" parameterType="ExcelOriginalDataPO" id="queryListValidate">
+		<include refid="ExcelOriginalDataDaoSelectSql" />
+		<include refid="ExcelOriginalDataDaoWhereAndSql" />
+	</select>
+</mapper>
